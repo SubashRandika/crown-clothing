@@ -6,10 +6,11 @@
 	align-items: center;
 	justify-content: center;
 	border: 1px solid black;
-	margin: 0 7.5px 15px;
+	margin: 0 7px 15px;
 	background-position: center;
 	background-size: cover;
 	overflow: hidden;
+	box-sizing: border-box;
 
 	&:hover {
 		cursor: pointer;
