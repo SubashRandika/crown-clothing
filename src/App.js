@@ -25,7 +25,7 @@ class App extends Component {
 				userRef.onSnapshot((snapshot) => {
 					setCurrentUser({
 						id: snapshot.id,
-						...snapshot.data()
+						...snapshot.data(),
 					});
 				});
 			}
@@ -43,13 +43,24 @@ class App extends Component {
 			<div>
 				<Header />
 				<Switch>
-					<Route exact path='/' component={HomePage}></Route>
-					<Route path='/shop' component={ShopPage}></Route>
-					<Route exact path='/checkout' component={CheckoutPage}></Route>
+					<Route exact path="/" component={HomePage}></Route>
+					<Route path="/shop" component={ShopPage}></Route>
 					<Route
 						exact
-						path='/signin'
-						render={() => (this.props.currentUser ? <Redirect to='/' /> : <SignInAndSignUpPage />)}></Route>
+						path="/checkout"
+						component={CheckoutPage}
+					></Route>
+					<Route
+						exact
+						path="/signin"
+						render={() =>
+							this.props.currentUser ? (
+								<Redirect to="/" />
+							) : (
+								<SignInAndSignUpPage />
+							)
+						}
+					></Route>
 				</Switch>
 			</div>
 		);
@@ -57,11 +68,11 @@ class App extends Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-	currentUser: selectCurrentUser
+	currentUser: selectCurrentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	setCurrentUser: (user) => dispatch(setCurrentUser(user))
+	setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

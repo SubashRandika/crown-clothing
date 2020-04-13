@@ -10,7 +10,7 @@ const config = {
 	storageBucket: 'crown-clothing-6aaca.appspot.com',
 	messagingSenderId: '276277805679',
 	appId: '1:276277805679:web:9ad61b1e82b4da5e42439a',
-	measurementId: 'G-BYG6WJ1YDC'
+	measurementId: 'G-BYG6WJ1YDC',
 };
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
@@ -30,7 +30,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 				displayName,
 				email,
 				createdAt,
-				...additionalData
+				...additionalData,
 			});
 		} catch (error) {
 			console.error('error creating user', error.message);
@@ -38,6 +38,40 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 	}
 
 	return userRef;
+};
+
+// This is load to load collection data into firebase programmatically.
+export const addCollectionAndDocuments = async (
+	collectionKey,
+	objectsToAdd
+) => {
+	const collectionRef = firestore.collection(collectionKey);
+	const batch = firestore.batch();
+
+	objectsToAdd.forEach((object) => {
+		const newDocRef = collectionRef.doc();
+		batch.set(newDocRef, object);
+	});
+
+	return await batch.commit();
+};
+
+export const convertCollectionsSnapshotToMap = (collections) => {
+	const transformedCollections = collections.docs.map((doc) => {
+		const { title, items } = doc.data();
+
+		return {
+			id: doc.id,
+			routeName: encodeURI(title.toLowerCase()),
+			title,
+			items,
+		};
+	});
+
+	return transformedCollections.reduce((accumulator, collection) => {
+		accumulator[collection.title.toLowerCase()] = collection;
+		return accumulator;
+	}, {});
 };
 
 firebase.initializeApp(config);
