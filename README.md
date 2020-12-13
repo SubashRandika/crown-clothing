@@ -35,7 +35,7 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
-## Live Preview of deployed application (Amazon Clone)
+## Live Preview of deployed application (Crown Clothing)
 
 ![Crown Clothing](https://raw.githubusercontent.com/SubashRandika/crown-clothing/master/CrownClothingPreview.png)
 
